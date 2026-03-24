@@ -23,5 +23,14 @@ public class Main {
         System.out.println("After removing AC Chair: " + passengerBogies);
 
         System.out.println("Is Sleeper present? " + passengerBogies.contains("Sleeper"));
+
+        Set<String> bogieIds = new HashSet<>();
+
+        bogieIds.add("B1");
+        bogieIds.add("B2");
+        bogieIds.add("B3");
+        bogieIds.add("B2");
+
+        System.out.println("\nUnique Bogie IDs: " + bogieIds);
     }
 }
