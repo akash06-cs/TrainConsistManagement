@@ -32,5 +32,32 @@ public class Main {
         bogieIds.add("B2");
 
         System.out.println("\nUnique Bogie IDs: " + bogieIds);
+
+        LinkedList<String> train = new LinkedList<>();
+
+        train.add("Engine");
+        train.add("Sleeper");
+        train.add("AC");
+        train.add("Cargo");
+        train.add("Guard");
+
+        train.add(2, "Pantry");
+
+        System.out.println("\nTrain after adding Pantry at position 2: " + train);
+
+        train.removeFirst();
+        train.removeLast();
+
+        System.out.println("Final Train Consist: " + train);
+
+        LinkedHashSet<String> formation = new LinkedHashSet<>();
+
+        formation.add("Engine");
+        formation.add("Sleeper");
+        formation.add("Cargo");
+        formation.add("Guard");
+        formation.add("Sleeper");
+
+        System.out.println("\nOrdered Unique Formation: " + formation);
     }
 }
