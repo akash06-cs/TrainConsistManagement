@@ -1,6 +1,35 @@
 import java.util.*;
 
 public class Main {
+    static class Bogie {
+        private final String name;
+        private final String type;
+        private final int capacity;
+
+        Bogie(String name, String type, int capacity) {
+            this.name = name;
+            this.type = type;
+            this.capacity = capacity;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public int getCapacity() {
+            return capacity;
+        }
+
+        @Override
+        public String toString() {
+            return name + " (" + type + ") -> Capacity: " + capacity;
+        }
+    }
+
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
@@ -70,5 +99,15 @@ public class Main {
         for (Map.Entry<String, Integer> entry : capacityMap.entrySet()) {
             System.out.println(entry.getKey() + " -> Capacity: " + entry.getValue());
         }
+
+        List<Bogie> passengerBogieObjects = new ArrayList<>();
+        passengerBogieObjects.add(new Bogie("Sleeper", "Passenger", 72));
+        passengerBogieObjects.add(new Bogie("AC Chair", "Passenger", 60));
+        passengerBogieObjects.add(new Bogie("First Class", "Passenger", 24));
+
+        passengerBogieObjects.sort(Comparator.comparingInt(Bogie::getCapacity));
+
+        System.out.println("\nUC7 - Sorted Passenger Bogies by Capacity:");
+        passengerBogieObjects.forEach(System.out::println);
     }
 }
