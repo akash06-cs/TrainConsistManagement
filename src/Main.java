@@ -1,5 +1,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     static class Bogie {
@@ -136,5 +138,21 @@ public class Main {
                 .reduce(0, Integer::sum);
 
         System.out.println("\nUC10 - Total Seating Capacity: " + totalSeats);
+
+        String trainIdInput = "TRN-1234";
+        String cargoCodeInput = "PET-AB";
+
+        Pattern trainIdPattern = Pattern.compile("TRN-\\d{4}");
+        Pattern cargoCodePattern = Pattern.compile("PET-[A-Z]{2}");
+
+        Matcher trainIdMatcher = trainIdPattern.matcher(trainIdInput);
+        Matcher cargoCodeMatcher = cargoCodePattern.matcher(cargoCodeInput);
+
+        boolean isTrainIdValid = trainIdMatcher.matches();
+        boolean isCargoCodeValid = cargoCodeMatcher.matches();
+
+        System.out.println("\nUC11 - Regex Validation:");
+        System.out.println("Train ID (" + trainIdInput + ") valid? " + isTrainIdValid);
+        System.out.println("Cargo Code (" + cargoCodeInput + ") valid? " + isCargoCodeValid);
     }
 }
