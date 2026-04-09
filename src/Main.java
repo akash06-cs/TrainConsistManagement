@@ -109,5 +109,12 @@ public class Main {
 
         System.out.println("\nUC7 - Sorted Passenger Bogies by Capacity:");
         passengerBogieObjects.forEach(System.out::println);
+
+        List<Bogie> highCapacityBogies = passengerBogieObjects.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .toList();
+
+        System.out.println("\nUC8 - Filtered Passenger Bogies (capacity > 60):");
+        highCapacityBogies.forEach(System.out::println);
     }
 }
