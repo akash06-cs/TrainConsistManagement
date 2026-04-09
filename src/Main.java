@@ -198,5 +198,29 @@ public class Main {
         System.out.println("\nUC12 - Safety Compliance Check:");
         goodsBogies.forEach(System.out::println);
         System.out.println("Train safety compliant? " + isSafetyCompliant);
+
+        List<Bogie> benchmarkBogies = new ArrayList<>();
+        for (int i = 0; i < 100_000; i++) {
+            benchmarkBogies.add(new Bogie("P" + i, "Passenger", 20 + (i % 90)));
+        }
+
+        long loopStart = System.nanoTime();
+        List<Bogie> loopFiltered = new ArrayList<>();
+        for (Bogie bogie : benchmarkBogies) {
+            if (bogie.getCapacity() > 60) {
+                loopFiltered.add(bogie);
+            }
+        }
+        long loopEnd = System.nanoTime();
+
+        long streamStart = System.nanoTime();
+        List<Bogie> streamFiltered = benchmarkBogies.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .toList();
+        long streamEnd = System.nanoTime();
+
+        System.out.println("\nUC13 - Performance Comparison (Loops vs Streams):");
+        System.out.println("Loop filtered count: " + loopFiltered.size() + ", time(ns): " + (loopEnd - loopStart));
+        System.out.println("Stream filtered count: " + streamFiltered.size() + ", time(ns): " + (streamEnd - streamStart));
     }
 }
