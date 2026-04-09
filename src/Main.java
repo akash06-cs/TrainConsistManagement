@@ -4,6 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
+    @FunctionalInterface
+    interface SafetyRule<T> {
+        boolean validate(T item);
+    }
+
     static class Bogie {
         private final String name;
         private final String type;
@@ -30,6 +35,29 @@ public class Main {
         @Override
         public String toString() {
             return name + " (" + type + ") -> Capacity: " + capacity;
+        }
+    }
+
+    static class GoodsBogie {
+        private final String type;
+        private final String cargo;
+
+        GoodsBogie(String type, String cargo) {
+            this.type = type;
+            this.cargo = cargo;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getCargo() {
+            return cargo;
+        }
+
+        @Override
+        public String toString() {
+            return "GoodsBogie{type='" + type + "', cargo='" + cargo + "'}";
         }
     }
 
@@ -154,5 +182,21 @@ public class Main {
         System.out.println("\nUC11 - Regex Validation:");
         System.out.println("Train ID (" + trainIdInput + ") valid? " + isTrainIdValid);
         System.out.println("Cargo Code (" + cargoCodeInput + ") valid? " + isCargoCodeValid);
+
+        List<GoodsBogie> goodsBogies = List.of(
+                new GoodsBogie("Cylindrical", "Petroleum"),
+                new GoodsBogie("Box", "Coal"),
+                new GoodsBogie("Flat", "Steel")
+        );
+
+        SafetyRule<GoodsBogie> safetyRule = bogie ->
+                !"Cylindrical".equalsIgnoreCase(bogie.getType())
+                        || "Petroleum".equalsIgnoreCase(bogie.getCargo());
+
+        boolean isSafetyCompliant = goodsBogies.stream().allMatch(safetyRule::validate);
+
+        System.out.println("\nUC12 - Safety Compliance Check:");
+        goodsBogies.forEach(System.out::println);
+        System.out.println("Train safety compliant? " + isSafetyCompliant);
     }
 }
