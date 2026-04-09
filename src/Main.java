@@ -138,6 +138,18 @@ public class Main {
         return false;
     }
 
+    private static boolean safeLinearSearch(List<String> bogieIds, String key) {
+        if (bogieIds.isEmpty()) {
+            throw new IllegalStateException("Search cannot proceed: no bogies available in the train.");
+        }
+        for (String id : bogieIds) {
+            if (id.equals(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
@@ -350,5 +362,14 @@ public class Main {
         boolean foundByBinarySearch = binarySearch(sortedBogieIds, binarySearchKey);
         System.out.println("\nUC19 - Binary Search on sorted IDs " + Arrays.toString(sortedBogieIds));
         System.out.println("UC19 - Search key " + binarySearchKey + " found? " + foundByBinarySearch);
+
+        List<String> emptyTrainBogieIds = new ArrayList<>();
+        try {
+            System.out.println("\nUC20 - Attempting search on empty train...");
+            safeLinearSearch(emptyTrainBogieIds, "B1");
+            System.out.println("UC20 - Search completed.");
+        } catch (IllegalStateException e) {
+            System.out.println("UC20 - Exception: " + e.getMessage());
+        }
     }
 }
