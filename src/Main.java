@@ -119,6 +119,25 @@ public class Main {
         return false;
     }
 
+    private static boolean binarySearch(String[] sortedIds, String key) {
+        int low = 0;
+        int high = sortedIds.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int comparison = key.compareTo(sortedIds[mid]);
+
+            if (comparison == 0) {
+                return true;
+            } else if (comparison < 0) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
@@ -324,5 +343,12 @@ public class Main {
         boolean foundByLinearSearch = linearSearch(unsortedBogieIds, linearSearchKey);
         System.out.println("\nUC18 - Linear Search on IDs " + Arrays.toString(unsortedBogieIds));
         System.out.println("UC18 - Search key " + linearSearchKey + " found? " + foundByLinearSearch);
+
+        String[] sortedBogieIds = Arrays.copyOf(unsortedBogieIds, unsortedBogieIds.length);
+        Arrays.sort(sortedBogieIds);
+        String binarySearchKey = "B7";
+        boolean foundByBinarySearch = binarySearch(sortedBogieIds, binarySearchKey);
+        System.out.println("\nUC19 - Binary Search on sorted IDs " + Arrays.toString(sortedBogieIds));
+        System.out.println("UC19 - Search key " + binarySearchKey + " found? " + foundByBinarySearch);
     }
 }
