@@ -110,6 +110,15 @@ public class Main {
         }
     }
 
+    private static boolean linearSearch(String[] ids, String key) {
+        for (String id : ids) {
+            if (id.equals(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
@@ -309,5 +318,11 @@ public class Main {
         String[] bogieTypeNames = {"Sleeper", "First Class", "AC Chair", "Pantry", "Cargo"};
         Arrays.sort(bogieTypeNames);
         System.out.println("\nUC17 - Sorted Bogie Names (Arrays.sort): " + Arrays.toString(bogieTypeNames));
+
+        String[] unsortedBogieIds = {"B5", "B2", "B9", "B1", "B7"};
+        String linearSearchKey = "B9";
+        boolean foundByLinearSearch = linearSearch(unsortedBogieIds, linearSearchKey);
+        System.out.println("\nUC18 - Linear Search on IDs " + Arrays.toString(unsortedBogieIds));
+        System.out.println("UC18 - Search key " + linearSearchKey + " found? " + foundByLinearSearch);
     }
 }
