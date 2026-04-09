@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     static class Bogie {
@@ -116,5 +117,18 @@ public class Main {
 
         System.out.println("\nUC8 - Filtered Passenger Bogies (capacity > 60):");
         highCapacityBogies.forEach(System.out::println);
+
+        List<Bogie> allBogies = new ArrayList<>(passengerBogieObjects);
+        allBogies.add(new Bogie("Tank Wagon", "Goods", 0));
+        allBogies.add(new Bogie("Box Wagon", "Goods", 0));
+
+        Map<String, List<Bogie>> bogiesByType = allBogies.stream()
+                .collect(Collectors.groupingBy(Bogie::getType));
+
+        System.out.println("\nUC9 - Grouped Bogies by Type:");
+        bogiesByType.forEach((type, bogies) -> {
+            System.out.println(type + ":");
+            bogies.forEach(bogie -> System.out.println("  " + bogie));
+        });
     }
 }
