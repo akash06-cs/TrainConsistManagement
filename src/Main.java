@@ -305,5 +305,9 @@ public class Main {
         System.out.println("\nUC16 - Capacities before Bubble Sort: " + Arrays.toString(capacitiesForBubbleSort));
         bubbleSort(capacitiesForBubbleSort);
         System.out.println("UC16 - Capacities after Bubble Sort: " + Arrays.toString(capacitiesForBubbleSort));
+
+        String[] bogieTypeNames = {"Sleeper", "First Class", "AC Chair", "Pantry", "Cargo"};
+        Arrays.sort(bogieTypeNames);
+        System.out.println("\nUC17 - Sorted Bogie Names (Arrays.sort): " + Arrays.toString(bogieTypeNames));
     }
 }
