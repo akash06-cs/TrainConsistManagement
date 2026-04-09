@@ -9,6 +9,12 @@ public class Main {
         boolean validate(T item);
     }
 
+    static class InvalidCapacityException extends Exception {
+        InvalidCapacityException(String message) {
+            super(message);
+        }
+    }
+
     static class Bogie {
         private final String name;
         private final String type;
@@ -58,6 +64,24 @@ public class Main {
         @Override
         public String toString() {
             return "GoodsBogie{type='" + type + "', cargo='" + cargo + "'}";
+        }
+    }
+
+    static class PassengerBogie {
+        private final String name;
+        private final int capacity;
+
+        PassengerBogie(String name, int capacity) throws InvalidCapacityException {
+            if (capacity <= 0) {
+                throw new InvalidCapacityException("Invalid capacity for " + name + ": " + capacity);
+            }
+            this.name = name;
+            this.capacity = capacity;
+        }
+
+        @Override
+        public String toString() {
+            return "PassengerBogie{name='" + name + "', capacity=" + capacity + "}";
         }
     }
 
@@ -222,5 +246,23 @@ public class Main {
         System.out.println("\nUC13 - Performance Comparison (Loops vs Streams):");
         System.out.println("Loop filtered count: " + loopFiltered.size() + ", time(ns): " + (loopEnd - loopStart));
         System.out.println("Stream filtered count: " + streamFiltered.size() + ", time(ns): " + (streamEnd - streamStart));
+
+        List<PassengerBogie> validatedPassengerBogies = new ArrayList<>();
+        try {
+            PassengerBogie sleeperCoach = new PassengerBogie("Sleeper Coach", 72);
+            validatedPassengerBogies.add(sleeperCoach);
+            System.out.println("\nUC14 - Valid bogie created: " + sleeperCoach);
+        } catch (InvalidCapacityException e) {
+            System.out.println("\nUC14 - " + e.getMessage());
+        }
+
+        try {
+            PassengerBogie invalidCoach = new PassengerBogie("Invalid Coach", 0);
+            validatedPassengerBogies.add(invalidCoach);
+        } catch (InvalidCapacityException e) {
+            System.out.println("UC14 - Validation failed: " + e.getMessage());
+        }
+
+        System.out.println("UC14 - Passenger bogies added after validation: " + validatedPassengerBogies.size());
     }
 }
