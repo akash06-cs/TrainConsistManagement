@@ -98,6 +98,18 @@ public class Main {
         System.out.println("UC15 - Cargo assigned successfully: " + cargo + " -> " + shape + " bogie");
     }
 
+    private static void bubbleSort(int[] values) {
+        for (int i = 0; i < values.length - 1; i++) {
+            for (int j = 0; j < values.length - i - 1; j++) {
+                if (values[j] > values[j + 1]) {
+                    int temp = values[j];
+                    values[j] = values[j + 1];
+                    values[j + 1] = temp;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
@@ -288,5 +300,10 @@ public class Main {
         }
 
         System.out.println("UC15 - Application continues safely after exception handling.");
+
+        int[] capacitiesForBubbleSort = {72, 60, 24, 80, 45};
+        System.out.println("\nUC16 - Capacities before Bubble Sort: " + Arrays.toString(capacitiesForBubbleSort));
+        bubbleSort(capacitiesForBubbleSort);
+        System.out.println("UC16 - Capacities after Bubble Sort: " + Arrays.toString(capacitiesForBubbleSort));
     }
 }
