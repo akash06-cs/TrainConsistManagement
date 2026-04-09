@@ -130,5 +130,11 @@ public class Main {
             System.out.println(type + ":");
             bogies.forEach(bogie -> System.out.println("  " + bogie));
         });
+
+        int totalSeats = passengerBogieObjects.stream()
+                .map(Bogie::getCapacity)
+                .reduce(0, Integer::sum);
+
+        System.out.println("\nUC10 - Total Seating Capacity: " + totalSeats);
     }
 }
