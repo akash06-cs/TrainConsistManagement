@@ -15,6 +15,12 @@ public class Main {
         }
     }
 
+    static class CargoSafetyException extends RuntimeException {
+        CargoSafetyException(String message) {
+            super(message);
+        }
+    }
+
     static class Bogie {
         private final String name;
         private final String type;
@@ -83,6 +89,13 @@ public class Main {
         public String toString() {
             return "PassengerBogie{name='" + name + "', capacity=" + capacity + "}";
         }
+    }
+
+    private static void assignCargo(String shape, String cargo) {
+        if ("Rectangular".equalsIgnoreCase(shape) && "Petroleum".equalsIgnoreCase(cargo)) {
+            throw new CargoSafetyException("Petroleum cannot be assigned to rectangular bogie.");
+        }
+        System.out.println("UC15 - Cargo assigned successfully: " + cargo + " -> " + shape + " bogie");
     }
 
     public static void main(String[] args) {
@@ -264,5 +277,16 @@ public class Main {
         }
 
         System.out.println("UC14 - Passenger bogies added after validation: " + validatedPassengerBogies.size());
+
+        try {
+            System.out.println("\nUC15 - Attempting unsafe cargo assignment...");
+            assignCargo("Rectangular", "Petroleum");
+        } catch (CargoSafetyException e) {
+            System.out.println("UC15 - Exception caught: " + e.getMessage());
+        } finally {
+            System.out.println("UC15 - Assignment flow completed (logged in finally).");
+        }
+
+        System.out.println("UC15 - Application continues safely after exception handling.");
     }
 }
